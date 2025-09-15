@@ -1,34 +1,187 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Figure 2</title>
-  <!-- Load Vega & Vega-Lite -->
-  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script> 
+  <title>Overdose Data Visualizations</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 </head>
 <body>
+  <h1>Overdose Exploratory Analysis</h1>
 
-  <!-- Container for the chart -->
+  <h2>Figure 1: Fatal Overdoses by Year</h2>
+  <div id="fig1"></div>
+
+  <h2>Figure 2: Evolution of Primary Drug Types</h2>
   <div id="fig2"></div>
 
+  <h2>Figure 3: Top 20 Zip Codes by Fatal Overdose Count</h2>
+  <div id="fig3"></div>
+
+  <h2>Figure 4: Drug Types by Geographic Area</h2>
+  <div id="fig4"></div>
+
+  <h2>Figure 5: Age and Sex Distribution</h2>
+  <div id="fig5"></div>
+
+  <h2>Figure 6: Racial/Ethnic Distribution</h2>
+  <div id="fig6"></div>
+
+  <h2>Figure 7: Multi-Drug Use Over Time</h2>
+  <div id="fig7"></div>
+
+  <h2>Figure 8: Seasonal Patterns</h2>
+  <div id="fig8"></div>
+
+  <h2>Figure 9: Age Groups vs Drug Types</h2>
+  <div id="fig9"></div>
+
   <script>
-    // Vega-Lite specification
-  const fig2 = {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Stacked area chart of primary drugs over time",
-  "data": {"url": "Dataset Fatal Accident.csv"},
-  "mark": "area",
-  "encoding": {
-    "x": {"field": "case_year", "type": "temporal"},
-    "y": {"aggregate": "count", "stack": "normalize"},
-    "color": {"field": "combined_od1", "type": "nominal"}
-  }
-};
-vegaEmbed('#fig2', fig2);
+    const dataset = "https://raw.githubusercontent.com/vsbot17/Exploratory-Visual-Analysis/main/Dataset%20Fatal%20Accident.csv";
+    const fig1 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Fatal overdoses by year (2007–2025)",
+      "data": {"url": dataset},
+      "mark": "line",
+      "encoding": {
+        "x": {"field": "case_year", "type": "temporal"},
+        "y": {"aggregate": "count", "type": "quantitative"},
+        "tooltip": [{"aggregate": "count", "field": "_id"}]
+      }
+    };
+    vegaEmbed('#fig1', fig1);
 
+    const fig2 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Stacked area chart of primary drugs over time",
+      "data": {"url": dataset},
+      "mark": "area",
+      "encoding": {
+        "x": {"field": "case_year", "type": "temporal"},
+        "y": {"aggregate": "count", "stack": "normalize"},
+        "color": {"field": "combined_od1", "type": "nominal"}
+      }
+    };
+    vegaEmbed('#fig2', fig2);
 
+    const fig3 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Top 20 zip codes with most overdoses",
+      "data": {"url": dataset},
+      "transform": [
+        {"aggregate": [{"op": "count", "as": "deaths"}], "groupby": ["incident_zip"]},
+        {"filter": "datum.incident_zip != null"},
+        {"window": [{"op": "rank", "as": "rank"}], "sort": [{"field": "deaths", "order": "descending"}]},
+        {"filter": "datum.rank <= 20"}
+      ],
+      "mark": "bar",
+      "encoding": {
+        "y": {"field": "incident_zip", "type": "ordinal", "sort": "-x"},
+        "x": {"field": "deaths", "type": "quantitative"},
+        "tooltip": ["incident_zip", "deaths"]
+      }
+    };
+    vegaEmbed('#fig3', fig3);
+
+    const fig4 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Heatmap of drug types by zip code",
+      "data": {"url": dataset},
+      "transform": [
+        {"filter": "datum.incident_zip != null"},
+        {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["incident_zip", "combined_od1"]},
+        {"window": [{"op": "rank", "as": "rank"}], "sort": [{"field": "count", "order": "descending"}]},
+        {"filter": "datum.rank <= 20"}  
+      ],
+      "mark": "rect",
+      "encoding": {
+        "x": {"field": "combined_od1", "type": "nominal", "title": "Drug Type"},
+        "y": {"field": "incident_zip", "type": "ordinal", "title": "Zip Code"},
+        "color": {"field": "count", "type": "quantitative"}
+      }
+    };
+    vegaEmbed('#fig4', fig4);
+
+    const fig5 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Fatal overdoses by age group and sex",
+      "data": {"url": dataset},
+      "transform": [
+        {"calculate": "floor(datum.age/10)*10 + '-' + (floor(datum.age/10)*10+9)", "as": "age_group"}
+      ],
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "age_group", "type": "ordinal", "title": "Age Group"},
+        "y": {"aggregate": "count", "type": "quantitative"},
+        "color": {"field": "sex", "type": "nominal"},
+        "column": {"field": "sex"}
+      }
+    };
+    vegaEmbed('#fig5', fig5);
+
+    const fig6 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Pie chart of overdose deaths by race",
+      "data": {"url": dataset},
+      "mark": {"type": "arc", "outerRadius": 120},
+      "encoding": {
+        "theta": {"aggregate": "count", "field": "_id"},
+        "color": {"field": "race", "type": "nominal"},
+        "tooltip": [{"aggregate": "count", "field": "_id"}]
+      },
+      "view": {"stroke": null}
+    };
+    vegaEmbed('#fig6', fig6);
+
+    const fig7 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Percentage of overdoses involving multiple substances",
+      "data": {"url": dataset},
+      "transform": [
+        {"calculate": "datum.combined_od2 != null ? 1 : 0", "as": "multi_drug"},
+        {"aggregate": [
+          {"op": "mean", "field": "multi_drug", "as": "multi_rate"}
+        ], "groupby": ["case_year"]}
+      ],
+      "mark": "line",
+      "encoding": {
+        "x": {"field": "case_year", "type": "temporal"},
+        "y": {"field": "multi_rate", "type": "quantitative", "axis": {"format": "%"}}
+      }
+    };
+    vegaEmbed('#fig7', fig7);
+
+    const fig8 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Overdoses by month of year",
+      "data": {"url": dataset},
+      "transform": [
+        {"calculate": "month(datum.death_date_and_time)", "as": "month"}
+      ],
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "month", "type": "ordinal", "title": "Month"},
+        "y": {"aggregate": "count", "type": "quantitative"}
+      }
+    };
+    vegaEmbed('#fig8', fig8);
+
+    const fig9 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Heatmap of drug types vs age groups",
+      "data": {"url": dataset},
+      "transform": [
+        {"calculate": "floor(datum.age/10)*10 + '-' + (floor(datum.age/10)*10+9)", "as": "age_group"},
+        {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["age_group", "combined_od1"]}
+      ],
+      "mark": "rect",
+      "encoding": {
+        "x": {"field": "combined_od1", "type": "nominal", "title": "Drug Type"},
+        "y": {"field": "age_group", "type": "ordinal", "title": "Age Group"},
+        "color": {"field": "count", "type": "quantitative"}
+      }
+    };
+    vegaEmbed('#fig9', fig9);
   </script>
-
 </body>
 </html>
