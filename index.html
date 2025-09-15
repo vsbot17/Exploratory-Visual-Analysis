@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Figure 2</title>
+  <!-- Load Vega & Vega-Lite -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+
+  <!-- Container for the chart -->
+  <div id="fig2"></div>
+
+  <script>
+    // Vega-Lite specification
+  const fig2 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Stacked area chart of primary drugs over time",
+  "data": {"url": "Dataset Fatal Accident.csv"},
+  "mark": "area",
+  "encoding": {
+    "x": {"field": "case_year", "type": "temporal"},
+    "y": {"aggregate": "count", "stack": "normalize"},
+    "color": {"field": "combined_od1", "type": "nominal"}
+  }
+};
+vegaEmbed('#fig2', fig2);
+
+
+  </script>
+
+</body>
+</html>
