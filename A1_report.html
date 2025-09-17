@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title>Data Vis Assignment 1</title>
+	<title>Vrushal Data Vis Assignment 1</title>
 	<link rel="stylesheet" href="https://dig.cmu.edu/datavis-fall-2024/assignments/report.css" />
 </head>
 
@@ -13,100 +13,135 @@
 		</h1>
 
 		<p>
-			<strong>Your Name</strong> — <em>Your CMU Email Address</em>
+			<strong>Vrushal Sakharkar</strong> — <em>vsakhark@andrew.cmu.edu</em>
 		</p>
 	</header>
-	<main>
+ <main>
 		<section>
-			<h2>Subtheme: [ENTER SUBTHEME]</h2>
+			<h2>My Three Research Questions</h2>
+    
+    		<p><strong>1. How have overdose deaths changed over the years?</strong><br>
+    		<em>Why I chose this:</em> I've heard about the "opioid crisis" in the news and wanted to see what the actual data shows about how it's changed over time.</p>
 
-			<h3>Overall Analysis Questions</h3>
-			<ol>
-				<li>QUESTION_1</li>
-				<li>QUESTION_2</li>
-				<li>QUESTION_3</li>
-				<li>...</li>
-			</ol>
+    		<p><strong>2. Where in Allegheny County do most overdoses happen?</strong><br>
+    		<em>Why I chose this:</em> I'm curious if overdoses happen more in certain neighborhoods, which could help target prevention programs.</p>
+
+   	 		<p><strong>3. Who is most affected by fatal overdoses?</strong><br>
+    		<em>Why I chose this:</em> Understanding age, gender, and race patterns can help identify who needs the most help.</p>
 		</section>
+	
+		<section>
+
+			<h2>Data Overview</h2>
+    
+    	 	<div class="key-stats">
+        		<div class="stat-box">
+            		<div class="big-number">7,478</div>
+             		Total Deaths (2007-2025)
+        		</div> <br>
+        		<div class="stat-box">
+             		<div class="big-number">45</div>
+            		Average Age at Death
+        		</div><br>
+        		<div class="stat-box">
+            		<div class="big-number">73%</div>
+            		Were Male
+       	 		</div><br>
+       	 		<div class="stat-box">
+            		<div class="big-number">19</div>
+            		Years of Data
+        		</div><br>
+			</div>
+	</section>
 
 		<section>
 			<h2>Discoveries & Insights</h2>
+			<h3> Question 1: How have overdose deaths changed over time?</h3>
 
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="images/F1.png" alt="Year to year cases" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				Fatal Overdoses by Year <br> This simple bar chart shows that overdose deaths generally increased over time, with some big jumps in certain years like 2016-2017
 				</figcaption>
 			</figure>
+			 <div class="insight">
+        		<strong>What I found:</strong> Deaths increased significantly starting around 2014. The highest numbers were in recent years (2020-2022), showing this is still a major problem.
+    		</div>
 
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="images/F2.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				Main Drug Types Over Time <br> This chart shows how different drugs became more or less common in fatal overdoses. I grouped similar drugs together to make patterns clearer.
 				</figcaption>
 			</figure>
+			<div class="insight">
+        		<strong>Key Discovery:</strong> Fentanyl barely appeared before 2015, but then became the #1 cause of death. Heroin was more common in earlier years but decreased as fentanyl increased. This shows how the drug supply changed dramatically.
+    		</div>
+			<h3> Question 2: Where do most overdoses happen?</h3>
+			<figure>
+				<img src="images/F3.png" alt="" />
+				<figcaption>
+				Top 15 Zip Codes for Fatal Overdoses <br> This chart shows which areas of Allegheny County have the most overdose deaths. I limited it to the top 15 to focus on the most affected areas.
+				</figcaption>
+			</figure>
+			<div class="insight">
+        		<strong>Geographic Pattern:</strong> A few zip codes have way more deaths than others. The top 3 areas (15219, 15210, 15212) account for a large portion of all deaths. This suggests overdoses are concentrated in specific neighborhoods rather than spread evenly across the county.
+    		</div>
+			<figure>
+				<img src="images/F4.png" alt="" />
+				<figcaption>
+				Drug Type Distribution by High-Impact Zip Codes<br> This heatmap visualization shows how different substances affect various geographic areas, revealing that fentanyl has become pervasive across all neighborhoods, while heroin and cocaine show more localized patterns.
+				</figcaption>
+			</figure>
+				<div class="insight">
+        		<strong>Zooming in:</strong>High Fentanyl and Cocaine consumption are leading factors for high death count in 15210
+    		</div>
+
+			<h3>Question 3: Who is most affected?</h3>
+			<figure>
+				<img src="images/F5.png" alt="" /> <br> <img src="images/F6.png" alt="" />
+				<figcaption>
+				Demographics of Fatal Overdose Victims <br>  These charts show the age, sex, and race of people who died from overdoses. I made separate charts to clearly see each demographic pattern.
+				</figcaption>
+			</figure>
+			<figure>
+				<img src="images/F8.png" alt="" /> <br> <img src="images/F82.png" alt="" />
+				<figcaption>
+				Age Group vs Primary Substance Heatmap <br>  Different age groups show distinct substance use patterns: younger victims (18-25) more often involve prescription drugs, middle-aged groups (26-45) show highest fentanyl rates, while older adults (55+) have higher alcohol involvement.
+				</figcaption>
+			</figure>
+			<div class="insight">
+        		<strong>Demographic Findings:</strong>
+        		<ul>
+            		<li><strong>Age:</strong> Most victims were between 25-55 years old, with the highest numbers in their 30s and 40s</li>
+            		<li><strong>Sex:</strong> About 3 out of 4 victims were male</li>
+            		<li><strong>Race:</strong> Most victims were white, but the crisis affects all racial groups</li>
+        		</ul>
+    		</div>
+			 <h3>Follow-up Analysis: Monthly Patterns</h3>
 
 			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
+				<img src="images/F7.png" alt="" />
 				<figcaption>
-				ENTER IMAGE CAPTION HERE.
+				Fatal Overdoses by Month <br> I wanted to see if certain times of year had more overdoses. This chart shows the total deaths for each month across all years.
 				</figcaption>
 			</figure>
-
-			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
-				<figcaption>
-				ENTER IMAGE CAPTION HERE.
-				</figcaption>
-			</figure>
-
-			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
-				<figcaption>
-				ENTER IMAGE CAPTION HERE.
-				</figcaption>
-			</figure>
-
-			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
-				<figcaption>
-				ENTER IMAGE CAPTION HERE.
-				</figcaption>
-			</figure>
-
-			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
-				<figcaption>
-				ENTER IMAGE CAPTION HERE.
-				</figcaption>
-			</figure>
-
-			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
-				<figcaption>
-				ENTER IMAGE CAPTION HERE.
-				</figcaption>
-			</figure>
-
-			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
-				<figcaption>
-				ENTER IMAGE CAPTION HERE.
-				</figcaption>
-			</figure>
-
-			<figure>
-				<img src="IMAGE_FILENAME" alt="" />
-				<figcaption>
-				ENTER IMAGE CAPTION HERE.
-				</figcaption>
-			</figure>
+				<div class="insight">
+        			<strong>Seasonal Patterns:</strong>There are slightly more deaths in winter months (December, January, February), but the differences aren't huge. This might be due to holidays, cold weather, or other seasonal factors.
+        		
+    			</div>
+			
 		</section>
 
 		<section>
 			<h2>Summary</h2>
+			<p><strong>The overdose crisis in Allegheny County has fundamentally transformed over the past two decades.</strong> What began as a diverse substance abuse problem evolved into a heroin epidemic and then transformed again into a synthetic opioid crisis dominated by fentanyl. This evolution demands adaptive public health responses.<br><br>
 
-			<p>WRITE FINAL SUMMARY HERE.</p>
+			<strong>Geographic concentration provides opportunities for targeted intervention.</strong> The clustering of fatal overdoses in specific neighborhoods suggests that concentrated efforts in high-impact areas could yield disproportionate benefits.<br><br>
+
+			<strong>Demographic patterns reveal both persistent disparities and emerging concerns.</strong> While certain populations remain at highest risk, the broadening impact across age groups, races, and sexes indicates the need for comprehensive, inclusive approaches to prevention and treatment.
+
+			</p>
 		</section>
 	</main>
 </body>

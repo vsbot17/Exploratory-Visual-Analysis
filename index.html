@@ -138,16 +138,17 @@
       "description": "Percentage of overdoses involving multiple substances",
       "data": {"url": dataset},
       "transform": [
-        {"calculate": "datum.combined_od2 != null ? 1 : 0", "as": "multi_drug"},
+        {"calculate": "count((datum.combined_od1 != null ? 1 : 0) + (datum.combined_od2 != null ? 1 : 0) + (datum.combined_od3 != null ? 1 : 0) + (datum.combined_od4 != null ? 1 : 0) + (datum.combined_od5 != null ? 1 : 0) + (datum.combined_od6 != null ? 1 : 0) + (datum.combined_od7 != null ? 1 : 0) + (datum.combined_od8 != null ? 1 : 0) + (datum.combined_od9 != null ? 1 : 0) + (datum.combined_od10 != null ? 1 : 0)) > 1 ? 1 : 0", "as": "multi_drug"},
         {"aggregate": [
           {"op": "mean", "field": "multi_drug", "as": "multi_rate"}
         ], "groupby": ["case_year"]}
       ],
       "mark": "line",
       "encoding": {
-        "x": {"field": "case_year", "type": "temporal"},
+        "x": {"field": "case_year", "type": "quantitative"},
         "y": {"field": "multi_rate", "type": "quantitative", "axis": {"format": "%"}}
-      }
+      
+    }
     };
     vegaEmbed('#fig7', fig7);
 
@@ -182,6 +183,29 @@
       }
     };
     vegaEmbed('#fig9', fig9);
+    
+    const fig10 = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Heatmap of drug types vs age groups",
+      "data": {"url": dataset},
+      "transform": [
+        {"calculate": "count((datum.combined_od1 != null ? 1 : 0) + (datum.combined_od2 != null ? 1 : 0) + (datum.combined_od3 != null ? 1 : 0) + (datum.combined_od4 != null ? 1 : 0) + (datum.combined_od5 != null ? 1 : 0) + (datum.combined_od6 != null ? 1 : 0) + (datum.combined_od7 != null ? 1 : 0) + (datum.combined_od8 != null ? 1 : 0) + (datum.combined_od9 != null ? 1 : 0) + (datum.combined_od10 != null ? 1 : 0))", "as": "drug_count"}
+      ],
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "case_year", "type": "quantitative", "title": "Year"},
+        "y": {"aggregate": "count", "title": "Number of Cases"},
+        "color": {"field": "drug_count", "type": "quantitative", "title": "Number of Drugs", "scale": {"scheme": "category20"}},
+       // "tooltip": [
+       //   {"field": "case_year", "type": "quantitative", "title": "Year"},
+       //   {"field": "drug_count", "type": "quantitative", "title": "Number of Drugs"},
+       //   {"aggregate": "count", "title": "Number of Cases"}
+        //]
+      },
+      "title": "Figure 10: Poly-Drug Use Patterns Over Time"
+    };
+
+    vegaEmbed('#fig10', fig10);
   </script>
 </body>
 </html>
